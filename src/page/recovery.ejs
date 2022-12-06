@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./components/header")%>
+</head>
+
+<body>
+    <div class="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+        <div>
+            <div class="absolute">
+                <img class="h-screen w-screen object-cover object-center opacity-20 blur-sm"
+                    src="/assets/img/login_sec1_bg.png">
+            </div>
+            <div class="relative grid w-full min-h-screen place-items-center">
+                <form class="grid grid-rows-none min-w-full px-10" id="recovery">
+                    <div class="text-white">
+                        <span>ลืมรหัสหรอ?</span>
+                        <h1
+                            class="text-transparent bg-gradient-to-r from-pink-400 to-pink-100 bg-clip-text text-6xl font-extrabold mb-2">
+                            RECOVERY
+                        </h1>
+                    </div>
+                    <div>
+                        <div>
+                            <label class="" id="alert"></label>
+                            <input type="email" id="email" placeholder="email"
+                                class="bg-white borde text-gray-900 text-sm rounded-md w-full p-2.5 focus:bg-gradient-to-r from-pink-100 to-white focus:outline-none"
+                                required>
+                        </div>
+                    </div>
+                    <p class="text-white mt-2">จำได้แล้ว? <a href="/auth/login" class="text-pink-200">คลิ๊กเลย!</a></p>
+                    <div>
+                        <button
+                            class="block bg-gradient-to-l from-pink-300 to-pink-400 text-white rounded-lg px-4 py-2 mt-2 transition-all duration-200 hover:scale-110"
+                            type="submit">เข้าสู่ระบบ</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/assets/js/custommain.js"></script>
+<script>
+    $("form#recovery").submit((e) => {
+        e.preventDefault();
+        tailwindAlert("err","รหัสผิดพลาด")
+    })
+</script>
+
+</html>

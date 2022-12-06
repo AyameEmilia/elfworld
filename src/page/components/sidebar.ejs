@@ -1,0 +1,101 @@
+<div class="bg-zinc-900 h-screen 2xl:col-span-4 xl:col-span-3 col-span-2 text-white overflow-y-scroll">
+    <div class="h-screen relative flex justify-end">
+        <div class="absolute hidden xl:grid gap-y-6 py-7 mx-10">
+
+            <a href="/">
+                <h1
+                    class="text-3xl font-semibold text-transparent bg-gradient-to-r from-pink-400 to-pink-100 bg-clip-text">
+                    ELFWORLD (BETA)
+                </h1>
+                <p class="text-white">
+                    <i class="fas fa-globe-asia"></i> พื้นที่สำหรับพูดคุย
+                </p>
+            </a>
+            <a class="grid grid-cols-4 text-white text-xl transition-all duration-200 hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-pink-700 hover:to-white hover:scale-110"
+                href="/">
+                <div class="col-span-1 text-center">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="col-span-3">
+                    หน้าหลัก
+                </div>
+            </a>
+            <a class="grid grid-cols-4 text-white text-xl transition-all duration-200 hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-pink-700 hover:to-white hover:scale-110"
+                href="/notify">
+                <div class="col-span-1 text-center">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="col-span-3">
+                    แจ้งเตือน
+                </div>
+            </a>
+            <button
+                class="grid grid-cols-4 xl:hidden text-white text-xl transition-all duration-200 hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-pink-700 hover:to-white hover:scale-110"
+                onclick="toggle_()">
+                <div class="col-span-1 text-center">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="col-span-3 text-start">
+                    ค้นหา
+                </div>
+            </button>
+            <a id="postbutton_" class="mt-2 py-2 px-24 text-center text-xl bg-gradient-to-r from-pink-600 to-pink-200 rounded-full transition-all duration-200 hover:scale-110"
+                href="#postInput">
+                <span>
+                    โพส
+                </span>
+            </a>
+        </div>
+        <a id="myprofile" class="absolute bottom-4 flex justify-center sm:justify-end xl:mx-5 xl:hover:bg-opacity-10 xl:hover:bg-white rounded-full px-4 py-2"
+            href="#">
+            <div class="xl:row-span-3">
+                <img src="/assets/img/icon/dummy-profile-pic.png"
+                    width="53" class="object-cover object-center rounded-full w-14 h-14" id="profile_dummy_image" style="display: inline-flex !important">
+            </div>
+            <div class="hidden xl:block mx-3 my-2">
+                <div>
+                    <span id="displayname_profile">Loading</span>
+                </div>
+                <div class="-mt-2 text-zinc-500">
+                    @<span id="username_profile">Loading</span>
+                </div>
+            </div>
+            <div class="hidden xl:block text-zinc-500 h-full">
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+        </a>
+        <div class="absolute xl:hidden grid gap-y-5 py-7 w-full text-center">
+            <div class="sm:pr-6 w-full sm:text-right">
+                <a href="/"
+                    class="text-white text-2xl transition-all duration-200 hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-pink-400 hover:to-pink-100">
+                    <i class="fas fa-home"></i>
+                </a>
+            </div>
+            <div class="sm:pr-6 w-full sm:text-right">
+                <a href="/notify"
+                    class="text-white text-2xl transition-all duration-200 hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-pink-400 hover:to-pink-100">
+                    <i class="fas fa-bell"></i>
+                </a>
+            </div>
+            <div class="sm:pr-6 w-full sm:text-right">
+                <button onclick="toggle_()"
+                    class="text-white text-2xl transition-all duration-200 hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-pink-400 hover:to-pink-100">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div class="sm:pr-6 w-full sm:text-right">
+                <a id="postbutton_mini" href="#"
+                    class="text-white text-2xl transition-all duration-200 hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-pink-400 hover:to-pink-100">
+                    <i class="fas fa-paper-plane"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let url = new URL(window.location.href);
+    if(url.pathname != "/") {
+        document.getElementById("postbutton_").href = "/"
+        document.getElementById("postbutton_mini").href = "/"
+    }
+</script>

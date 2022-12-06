@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./components/header")%>
+</head>
+
+<body>
+    <div class="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+        <div>
+            <div class="absolute">
+                <img class="h-screen w-screen object-cover object-center opacity-20 blur-sm" src="/assets/img/login_sec1_bg.png">
+            </div>
+            <div class="relative grid w-full min-h-screen place-items-center">
+                <form class="grid grid-rows-none min-w-full px-10" id="register">
+                    <div class="text-white">
+                        <span>ผู้ใช้ใหม่สินะคะ!</span>
+                        <h1
+                            class="text-transparent bg-gradient-to-r from-pink-400 to-pink-100 bg-clip-text text-6xl font-extrabold mb-2">
+                            REGISTER
+                        </h1>
+                    </div>
+                    <div class="mt-2">
+                        <div>
+                            <label class="" id="alert"></label>
+                            <input type="text" id="displayname" name="displayname" placeholder="ชื่อที่ใช้แสดงหน้าโปรไฟล์" pattern="[a-zA-Z0-9_]+"
+                                class="bg-slate-50 opacity-95 borde text-gray-900 text-sm rounded-md w-full p-2.5 focus:bg-gradient-to-r from-pink-100 to-white focus:outline-none"
+                                required>
+                        </div>
+                        <div class="mt-2">
+                            <input type="text" id="username" name="username" placeholder="ชื่อผู้ใช้" pattern="[a-zA-Z0-9_]+"
+                                class="bg-slate-50 opacity-95 borde text-gray-900 text-sm rounded-md w-full p-2.5 focus:bg-gradient-to-r from-pink-100 to-white focus:outline-none"
+                                required>
+                        </div>
+                        <div class="mt-2">
+                            <input type="email" id="Email" name="email" placeholder="อีเมล"
+                                class="bg-slate-50 opacity-95 borde text-gray-900 text-sm rounded-md w-full p-2.5 focus:bg-gradient-to-r from-pink-100 to-white focus:outline-none"
+                                required>
+                        </div>
+                        <div class="mt-2">
+                            <input type="password" id="password" name="password" placeholder="รหัสผ่าน"
+                                class="bg-slate-50 opacity-95 borde text-gray-900 text-sm rounded-md w-full p-2.5 focus:bg-gradient-to-r from-pink-100 to-white focus:outline-none"
+                                required>
+                        </div>
+                        <div class="mt-2">
+                            <input type="password" id="cfpassword" placeholder="ยืนยันรหัสผ่าน"
+                                class="bg-slate-50 opacity-95 borde text-gray-900 text-sm rounded-md w-full p-2.5 focus:bg-gradient-to-r from-pink-100 to-white focus:outline-none"
+                                required>
+                        </div>
+                    </div>
+                    <p class="text-white mt-2">มีบัญชีผู้ใช้อยู่แล้ว? <a href="/auth/login" class="text-pink-200">คลิ๊กเลย!</a></p>
+                    <div>
+                        <button
+                            id="submit"
+                            class="block bg-gradient-to-l from-pink-300 to-pink-400 text-white rounded-lg px-4 py-2 mt-2 transition-all duration-200 hover:scale-110"
+                            type="submit">สมัคร</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="/assets/js/custommain.js"></script>
+<script>
+    //send login post
+    $("form#register").submit((e) => {
+        document.getElementById("submit").disabled = true;
+        tailwindAlert("info", "กำลังส่งข้อมูลสมัคร...")
+        e.preventDefault();
+        let settings = {
+            url: "/api/v1/user/auth/register",
+            method: "POST",
+            processData: false,
+            mimeType: "multipart/form-data",
+            contentType: false,
+            data: new FormData(e.target)
+        };
+
+        if(document.getElementById("cfpassword").value != document.getElementById("password").value) {
+            tailwindAlert("err", "รหัสผ่านไม่ตรงกัน!")
+            return document.getElementById("submit").disabled = false;
+        }
+
+        $.ajax(settings).done(function(response) {
+            let res = JSON.parse(response)
+            if (res.code != 1) {
+                tailwindAlert("err", res.msg)
+                return document.getElementById("submit").disabled = false;
+            } else {
+                tailwindAlert("ok", res.msg)
+                
+                let countdown = 1000
+                setInterval(() => {
+                    tailwindAlert("info", "เปลี่ยนหน้าไปยัง Login ใน: "+((countdown/100)*100).toFixed(0))
+                    countdown = countdown - 10
+                }, 10);
+                return setTimeout(() => {
+                    return window.location.replace("/auth/login")
+                }, 1000);
+            }
+        });
+    })
+</script>
+
+</html>

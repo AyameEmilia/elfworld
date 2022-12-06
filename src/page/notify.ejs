@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./components/header")%>
+</head>
+
+<body>
+    <div class="grid grid-cols-11">
+        <%- include("./components/sidebar")%>
+            <div class="bg-zinc-800 h-screen 2xl:col-span-3 xl:col-span-5 col-span-9 overflow-y-scroll"
+                id="content_main">
+                <div class=" m-7">
+                    <a href="/" class="text-white text-2xl">
+                        <i class="fas fa-caret-left"></i> <span class="mx-3">กลับไปหน้าหลัก</span>
+                    </a>
+                </div>
+                <div class="grid grid-cols-1 gap-6 m-7" id="listNotify">
+                    
+                </div>
+            </div>
+            <%- include("./components/explore")%>
+    </div>
+</body>
+<script src="/assets/js/custommain.js"></script>
+<script>
+    let user = {}
+
+    $.ajax({
+        url: "/api/v1/user",
+        method: "POST"
+    }).done(function (res) {
+        if (res.code != 1) return window.location.replace("/auth/login")
+        if (res.data.profile.avatar) document.getElementById("profile_dummy_image").src = res.data.profile.avatar
+        $("#username_profile").text(res.data.username)
+        $("#displayname_profile").text(res.data.profile.displayName)
+        $("#myprofile").attr("href", "/user?q=" + res.data.username)
+        user = res.data
+    })
+
+    function encodeHTML(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+    }
+
+    GetNotify(0)
+    function GetNotify(skip) {
+        let form = new FormData();
+        form.append("skip", skip);
+
+        let settings = {
+            "url": "/api/v1/user/getnotify",
+            "method": "POST",
+            "timeout": 0,
+            "processData": false,
+            "mimeType": "multipart/form-data",
+            "contentType": false,
+            "data": form
+        };
+
+        $.ajax(settings).done(function (response) {
+            const res = JSON.parse(response)
+            if(res.code) {
+                res.list.forEach(e => {
+
+                    let type = ``
+                    if(e.type === 0 || e.type === 2 || e.type === 1) type = `<a href="/status?s=${e.actionId}" class="-mt-2 text-pink-400">show more</a>`
+                    else if(e.type === 3) type = `<a href="/user?q=${_encodeHTML(e?.form?.user.username)}" class="-mt-2 text-pink-400">See profile</a>`
+
+                    $("#listNotify").append(`<div class="grid justify-start gap-2">
+                        <div>
+                            <div class="flex justify-start gap-3">
+                                <img src="${e?.form?.avatar??'/assets/img/icon/dummy-profile-pic.png'}" class="object-cover object-center rounded-full w-14 h-14"
+                            style="display: inline-flex !important; height: 50px; width: 50px;">
+                                <div>
+                                    <span class="text-xl text-white">
+                                        ${_encodeHTML(e?.form?.displayName)}
+                                    </span>
+                                    <p class="text-white text-sm">
+                                        ${e.type === 0?`<i class="fad fa-comments"></i>`:""}${e.type === 1?`<i class="fas fa-heart"></i>`:""}${e.type === 2?`<i class="fad fa-sync-alt"></i>`:""}${e.type === 3?`<span id="follow"><i class="fas fa-user-plus"></i></span>`:""} ${e.title}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-white text-sm text-opacity-25">
+                               ${e.type === 2 || e.type === 1 || e.type === 0 ? `${e.content}`:""}
+                            </p>
+                        </div>
+                        ${type}
+                    </div>`)
+                });
+            }
+        });
+    }
+
+    function _encodeHTML(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
+</script>
+
+</html>

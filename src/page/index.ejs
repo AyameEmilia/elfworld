@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./components/header")%>
+</head>
+
+<body>
+    <div class="grid grid-cols-11">
+        <%- include("./components/sidebar")%>
+        <div class="bg-zinc-800 h-screen 2xl:col-span-3 xl:col-span-5 col-span-9 overflow-y-scroll" id="content_main">
+
+            <!-- post content -->
+            <form class="bg-zinc-900 bg-opacity-50" id="postInput">
+                <div class="w-full p-4">
+                    <div class="w-100">
+                        <textarea name="content" id="post_content" oninput="countword(this.value.length)" rows="4" maxlength="500"
+                            class="block p-2 w-full text-2xl text-white text-opacity-80 bg-white bg-opacity-0 rounded-lg outline-none overflow-y-visible"
+                            placeholder="พูดอะไรสักอย่างในวันนี้!"></textarea>
+                    </div>
+                    <div class="w-100 text-right">
+                        <span class="text-white" id="countword_preview">
+                        </span>
+                    </div>
+
+                    <div class="w-full flex justify-between mt-2">
+                        <div class="h-28 w-28 relative hidden" id="img_catagory">
+                            <img id="previewImg" src="#"
+                                class="absolute inset-0 z-0 object-cover object-top h-28 w-28 rounded-lg" alt="" />
+                            <button type="button" onclick="removeImg()"
+                                class="rounded-lg opacity-0 bg-black hover:bg-opacity-40 hover:opacity-100 duration-300 absolute inset-0 z-10 flex justify-center items-center text-white font-semibold"><i
+                                    class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="w-full flex justify-between mt-2">
+                        <div>
+                            <label for="uploadimg"
+                                class="block cursor-pointer bg-gradient-to-l text-2xl text-white bg-clip-text rounded-full p-2 transition-all duration-200 hover:scale-110 hover:text-pink-200">
+                                <i class="fas fa-camera"></i>
+                            </label>
+                            <input type="file" id="uploadimg" name="uploadimg" accept="image/png, image/gif, image/jpeg" hidden />
+                        </div>
+                        <div class="flex justify-end">
+                            <div class="mr-1">
+                                <select id="published" name="published" class="outline-none h-full text-white bg-opacity-0 bg-white">
+                                    <option value=0 selected class="text-black">สาธารณะ</option>
+                                    <option value=1 class="text-black">ส่วนตัว</option>
+                                </select>
+                            </div>
+                            <div class="ml-1">
+                                <button
+                                    class="block bg-gradient-to-l from-pink-300 to-pink-400 text-white rounded-full px-4 py-2 transition-all duration-200 hover:scale-110"
+                                    type="submit">บอกเล่า
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <img>
+                </div>
+            </form>
+
+            <!-- content -->
+            <div class="xl:col-span-3 col-span-6" id="content">
+            </div>
+
+        </div>
+        <%- include("./components/explore")%>
+</body>
+<script src="/assets/js/custommain.js"></script>
+<script src="/assets/js/home.js"></script>
+</html>

@@ -1,0 +1,118 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int         @id @default(autoincrement())
+  createAt  DateTime    @default(now())
+  username  String      @unique @db.VarChar(20)
+  password  String
+  role      Int         @default(0)
+  email     String      @unique
+  profile   Profile?
+  posts     Post[]
+  Repost    Repost[]
+  Comment   Comment[]
+  follower  Follower[]
+  following Following[]
+  Like      Like[]
+  notify    notify[]
+}
+
+model notify {
+  id         Int      @id @default(autoincrement())
+  createAt   DateTime @default(now())
+  title      String   @db.VarChar(100)
+  content    String?  @db.VarChar(200)
+  isRead     Boolean  @default(false)
+  fromId     Int
+  toId       Int
+  uniqueData String   @unique
+  type       Int
+  actionId   Int?
+  form       Profile  @relation(fields: [fromId], references: [userId], onDelete: Cascade, onUpdate: Restrict)
+  user       User     @relation(fields: [toId], references: [id], onDelete: Cascade, onUpdate: Restrict)
+}
+
+model Profile {
+  id          Int       @id @default(autoincrement())
+  userId      Int       @unique
+  badge       Json?
+  displayName String    @db.VarChar(20)
+  banner      String?
+  avatar      String?
+  status      String?
+  birthday    DateTime?
+  bio         String?   @db.VarChar(200)
+  link        String?   @db.VarChar(40)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Restrict)
+  notify      notify[]
+}
+
+model Follower {
+  id         Int      @id @default(autoincrement())
+  followAt   DateTime @default(now())
+  followerId Int
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Restrict)
+}
+
+model Following {
+  id       Int      @id @default(autoincrement())
+  followAt DateTime @default(now())
+  followId Int
+  userId   Int
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Restrict)
+}
+
+model Post {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  isComment Boolean   @default(true)
+  updatedAt DateTime  @updatedAt
+  content   String    @db.VarChar(500)
+  img       String?
+  published Boolean   @default(false)
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Restrict)
+  authorId  Int
+  comment   Comment[]
+  Repost    Repost[]
+  Like      Like[]
+}
+
+model Like {
+  id     Int  @id @default(autoincrement())
+  postId Int
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Restrict)
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Restrict)
+}
+
+model Repost {
+  id        Int      @id @default(autoincrement())
+  postId    Int
+  userId    Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Restrict)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Restrict)
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  postId    Int
+  authorId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  content   String   @db.VarChar(500)
+  img       String?
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Restrict)
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Restrict)
+}

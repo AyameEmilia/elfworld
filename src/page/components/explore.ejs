@@ -1,0 +1,95 @@
+<div class="bg-zinc-900 h-screen 2xl:col-span-4 xl:col-span-3 hidden xl:block overflow-y-scroll" id="toggle_search">
+
+    <div class="m-7">
+        <div>
+            <input maxlength="20" onchange="searchuser(this.value)" class="text-white outline-none bg-neutral-600 bg-opacity-30 rounded-lg px-4 py-2"
+                type="text" placeholder="ค้นเพื่อนใหม่">
+            <button type="button" class="text-white bg-neutral-600 bg-opacity-30 rounded-lg px-3 py-2"><i
+                    class="fas fa-search"></i></button>
+            </div>
+        <div class="grid justify-start mt-3 gap-2 px-3" id="list_search_user">
+        </div>
+        <div class="mt-4">
+            <div>
+                <span class="text-white">
+                    <i class="fas fa-users"></i> ผู้ใช้ที่พึ่งสมัครเข้ามาในระบบ
+                </span>
+            </div>
+            <div class="grid justify-start mt-3 gap-2 px-3" id="list_newuser">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let openToggle = false
+    function toggle_() {
+        if (!openToggle) {
+            openToggle = true
+            document.getElementById("content_main").classList.add("hidden")
+            document.getElementById("toggle_search").classList.add("col-span-9", "xl:col-span-8", "2xl:col-span-7")
+            document.getElementById("toggle_search").classList.remove("hidden", "2xl:col-span-4", "xl:col-span-3")
+        } else {
+            openToggle = false
+            document.getElementById("content_main").classList.remove("hidden")
+            document.getElementById("toggle_search").classList.remove("col-span-9", "xl:col-span-8", "2xl:col-span-7")
+            document.getElementById("toggle_search").classList.add("hidden", "2xl:col-span-4", "xl:col-span-3")
+        }
+    }
+    function searchuser(username) {
+        let searchdata = new FormData()
+        searchdata.append("search", username)
+        $.ajax({
+            url: "/api/v1/user/find",
+            method: "POST",
+            processData: false,
+            mimeType: "multipart/form-data",
+            contentType: false,
+            data: searchdata
+        }).done(function (resp) {
+            let res = JSON.parse(resp)
+
+            list_search_user.innerHTML = ""
+            if(res.list.length === 0) return list_search_user.innerHTML = `<div><span class="text-red-400 text-opacity-60"><i class="fas fa-times"></i> ไม่พบผู้ใช้ที่ชื่อไกล้เคียง</span></div>`
+            res.list.forEach(e => {
+                list_search_user.innerHTML += `<a class="flex justify-start gap-1 hover:bg-gray-400 hover:bg-opacity-10 py-2 px-3 rounded-full" href="/user?q=${e.username}">
+                    <div>
+                        <img src="${e.profile.avatar??'/assets/img/icon/dummy-profile-pic.png'}"
+                        class="object-cover object-center rounded-full w-14 h-14">
+                    </div>
+                    <div class="text-white mt-2 mx-2">
+                        <h1 class="-mx-1 overflow-x-clip">${e.profile.displayName}</h1>
+                        <p class="opacity-25 -m-1">${e.username}</p>
+                    </div>
+                </a>`
+            });
+        })
+    }
+    function newuser() {
+        $.ajax({
+            url: "/api/v1/user/newuser",
+            method: "POST",
+        }).done(function (res) {
+            list_newuser.innerHTML = ""
+            if(res.list.length === 0) return list_newuser.innerHTML = `<div><span class="text-white">ไม่พบผู้ใช้ที่ชื่อไกล้เคียง</span></div>`
+            res.list.forEach(e => {
+                list_newuser.innerHTML += `<a class="flex justify-start gap-1 hover:bg-gray-400 hover:bg-opacity-10 py-2 px-3 rounded-full" href="/user?q=${e.username}">
+                    <div>
+                        <img src="${e.profile.avatar??'/assets/img/icon/dummy-profile-pic.png'}"
+                        class="object-cover object-center rounded-full w-14 h-14">
+                    </div>
+                    <div class="text-white mt-2 mx-2">
+                        <h1 class="-mx-1 overflow-x-clip">${XencodeHTML(e.profile.displayName)}</h1>
+                        <p class="opacity-25 -m-1">${XencodeHTML(e.username)}</p>
+                    </div>
+                </a>`
+            });
+        })
+    }
+
+    newuser()
+
+    
+function XencodeHTML(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
+</script>

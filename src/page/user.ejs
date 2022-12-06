@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./components/header")%>
+</head>
+
+<body>
+    <div id="setting_" class="w-screen h-screen fixed hidden justify-center items-center z-40 bg-black backdrop-blur-sm bg-opacity-60">
+        <div class="bg-black rounded-lg p-7 m-4">
+            <div class="flex justify-between">
+                <div>
+                    <span class="text-white text-2xl">
+                        <i class="fas fa-pen"></i> แก้ไขข้อมูล
+                    </span>
+                </div>
+                <div class="transition-all duration-300 hover:scale-125">
+                    <span class="text-white text-2xl">
+                        <button type="button" onclick="setting()"><i class="fas fa-times"></i></button>
+                    </span>
+                </div>
+            </div>
+            <form id="editProfile_1">
+                <div>
+                    <div>
+                        <span class="text-white text-opacity-40 text-sm">
+                            ข้อมูลทั่วไป
+                        </span>
+                    </div>
+                    <div class="grid justify-center gap-3 grid-cols-2">
+                        <div class="relative">
+                            <input type="text" id="displayname_" name="displayName" maxlength="20" class="block px-2.5 pb-2.5 pt-5 w-full text-sm text-white bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-pink-400 peer" placeholder=" " />
+                            <label for="displayname_" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-pink-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">
+                                Display name
+                            </label>
+                        </div>
+                        <div class="relative">
+                            <input type="text" id="link_" name="link" maxlength="20" class="block px-2.5 pb-2.5 pt-5 w-full text-sm text-white bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-pink-400 peer" placeholder=" " />
+                            <label for="link_" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-pink-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">
+                                link
+                            </label>
+                        </div>
+                        <div class="relative col-span-2">
+                            <textarea id="bio_" rows="1" maxlength="200" name="bio" class="block px-2.5 pb-2.5 pt-5 w-full text-sm text-white bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-pink-400 peer" placeholder=" "></textarea>
+                            <label for="bio_" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-pink-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">
+                                Bio
+                            </label>
+                        </div>
+                        <div class="relative col-span-2">
+                            <input type="text" id="username_" name="username" maxlength="20" class="block px-2.5 pb-2.5 pt-5 w-full text-sm text-white bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-pink-400 peer" placeholder=" " />
+                            <label for="username_" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-pink-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">
+                                @Username (สำหรับค้นหาและ Login)
+                            </label>
+                        </div>
+                        <div class="mt-2 col-span-2">
+                            <span class="text-white text-opacity-40 text-sm">
+                                วันเกิด
+                            </span>
+                            <input type="datetime-local" name="birthday" value="1900-01-01T00:00" id="date_" class="block px-2.5 pb-2.5 pt-5 w-full text-sm text-white bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:border-pink-400">
+                        </div>
+                        <div class="relative col-span-2">
+                            <input type="password" id="password__" name="password" maxlength="20" class="block px-2.5 pb-2.5 pt-5 w-full text-sm text-white bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-pink-400 peer" placeholder=" " required/>
+                            <label for="password__" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-pink-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">
+                                ยืนยันรหัสผ่านปัจจุบัน!
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <button
+                        class="block mt-2 bg-gradient-to-l from-pink-300 to-pink-400 text-white rounded-full px-4 py-2 transition-all duration-200 hover:scale-110"
+                        type="submit">แก้ไข
+                    </button>
+                </div>
+            </form>
+            <form id="editProfile_2">
+                <div class="mt-2">
+                    <div>
+                        <span class="text-white text-opacity-40 text-sm">
+                            ตั้งค่าบัญชี
+                        </span>
+                    </div>
+                    <div class="grid grid-cols-2 justify-center gap-2">
+                        <div class="relative">
+                            <input type="text" name="email" id="email_" maxlength="20" class="block px-2.5 pb-2.5 pt-5 w-full text-sm text-white bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-pink-400 peer" placeholder=" " />
+                            <label for="email_" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-pink-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">
+                                Email
+                            </label>
+                        </div>
+                        <div class="relative">
+                            <input type="password" name="newpassword_" id="newpassword_" maxlength="20" class="block px-2.5 pb-2.5 pt-5 w-full text-sm text-white bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-pink-400 peer" placeholder=" " />
+                            <label for="newpassword_" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-pink-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">
+                                New Password
+                            </label>
+                        </div>
+                        <div class="relative col-span-2">
+                            <input type="password" name="password" id="password_" maxlength="20" class="block px-2.5 pb-2.5 pt-5 w-full text-sm text-white bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-pink-400 peer" placeholder=" " required/>
+                            <label for="password_" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-pink-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">
+                                ยืนยันรหัสผ่านปัจจุบัน!
+                            </label>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button
+                            class="block mt-2 bg-gradient-to-l from-pink-300 to-pink-400 text-white rounded-full px-4 py-2 transition-all duration-200 hover:scale-110"
+                            type="submit">แก้ไข
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="grid grid-cols-11">
+        <%- include("./components/sidebar")%>
+        <div class="bg-zinc-800 h-screen 2xl:col-span-3 xl:col-span-5 col-span-9 overflow-y-scroll overflow-x-hidden" id="content_main">
+            <div id="showUser">
+                <div class="w-full px-2">
+                    <div class="flex justify-start w-full">
+                        <a href="/" class="text-white m-7 text-2xl">
+                            <i class="fas fa-caret-left"></i> <span class="mx-3">กลับไปหน้าหลัก</span>
+                        </a>
+                    </div>
+                    <div>
+                        <label for="upload_banner"
+                        class="block cursor-pointer bg-gradient-to-l text-2xl text-white bg-clip-text rounded-full p-2">
+                            <img id="profile_banner" src="https://dummyimage.com/600x400/000/000.png" onchange="uploadBanner()" class="object-cover object-center rounded-xl h-56 w-full" alt="banner">
+                        </label>
+                        <input type="file" id="upload_banner" onchange="uploadbanner_img()" name="upload_banner" accept="image/png, image/gif, image/jpeg" hidden disabled/>
+                    </div>
+                    <div class="flex justify-between">
+                            <label for="upload_profile"
+                                class="block cursor-pointer bg-gradient-to-l text-2xl text-white bg-clip-text rounded-full p-2 z-20">
+                                <img id="profile_img" src="https://dummyimage.com/600x400/000/000.png" class="object-cover object-center rounded-full -mt-24 mx-3 w-32 h-32" alt="profile">
+                            </label>
+                            <input type="file" onchange="uploadprofile_img()" id="upload_profile" name="upload_profile" accept="image/png, image/gif, image/jpeg" hidden disabled/>
+                        <div class="flex justify-end mt-1 gap-x-1 mr-3">
+                            <div id="followButton" class="hidden">
+                               <button type="button" onclick="follow()" id="follow_button" class="bg-white bg-opacity-10 px-4 rounded-full py-1 text-white transition-all duration-200 hover:bg-white hover:bg-opacity-30"><span id="follow"></span></button>
+                            </div>
+                            <div id="settingButton" class="hidden">
+                               <button type="button" onclick="setting()" class="bg-white bg-opacity-10 px-4 rounded-full py-1 text-white transition-all duration-200 hover:bg-white hover:bg-opacity-30"><i class="fas fa-cog"></i></button>
+                            </div>
+                            <div id="logout" class="hidden">
+                               <button type="button" onclick="logout()" class="bg-white bg-opacity-10 px-4 rounded-full py-1 text-white transition-all duration-200 hover:bg-white hover:bg-opacity-30"><i class="fas fa-door-open"></i> ออกจากระบบ</button>
+                            </div>
+                            <script>
+                                function logout() {
+                                    window.location.replace("/logout")
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="mt-2 mx-3">
+                        <span class="text-white text-lg" id="displayname">
+                            ...
+                        </span>
+                    </div>
+                    <div class="-mt-1 mx-3">
+                        <span class="text-white text-opacity-25 text-sm" id="userName">
+                            ...
+                        </span>
+                    </div>
+                    <div class="mt-1 mx-3" id="showBio">
+                        <div class="bg-black bg-opacity-20 rounded-lg text-white p-3 w-full text-sm font-light tracking-normal">
+                            <span class="break-all" id="bioDisplay"></span>
+                        </div>
+                    </div>
+                    <div class="mt-1 mx-3" id="showLink">
+                        <span class="text-white text-opacity-25 text-sm">
+                            <i class="fad fa-link"></i> <a id="link__" class="text-pink-500 text-opacity-50" href="https://ellafern.net" target="_blank"><span id="__link"></span></a>
+                        </span>
+                    </div>
+                    <div class="mt-1 mx-3">
+                        <span class="text-sm text-white">
+                            <span id="followerCount">0</span> <span class="text-white text-opacity-25 ">ผู้ติดตาม</span> <span id="followingCount">0</span> <span class="text-white text-opacity-25 ">ติดตาม</span>
+                        </span>
+                    </div>
+                    <div class="-mt-1 mx-3">
+                        <span class="text-white text-opacity-25 text-sm">
+                            <i class="fad fa-sign-in-alt"></i> เข้าร่วม <span id="joinAt">xx/xx/xx</span> <span id="showBD"><i class="fad fa-birthday-cake"></i> <span id="bD_">xx/xx</span></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="px-2 mx-3 mt-1 text-center text-white">
+                    <div class="bg-black bg-opacity-25 rounded-lg py-1">
+                        <span class="text-sm">
+                            <i class="fas fa-scroll-old"></i> โพส
+                        </span>
+                    </div>
+                </div>
+                <div class="xl:col-span-3 col-span-6" id="content">
+                </div>
+            </div>
+        </div>
+        <%- include("./components/explore")%>
+    </div>
+</body>
+<script src="/assets/js/custommain.js"></script>
+<script src="/assets/js/user.js"></script>
+</html>

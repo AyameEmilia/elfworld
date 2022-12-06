@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./components/header")%>
+</head>
+
+<body>
+    <div class="grid grid-cols-11">
+        <%- include("./components/sidebar")%>
+            <div class="bg-zinc-800 h-screen 2xl:col-span-3 xl:col-span-5 col-span-9 overflow-y-scroll overflow-x-hidden"
+                id="content_main">
+                <div class="flex justify-start w-full">
+                    <a href="/" class="text-white m-7 text-2xl">
+                        <i class="fas fa-caret-left"></i> <span class="mx-3">กลับไปหน้าหลัก</span>
+                    </a>
+                </div>
+                <div class="flex justify-start w-full" id="statusContent">
+                    <div class="mx-7 w-full">
+                        <div class="rounded-lg w-full">
+                            <div class="flex justify-start w-full">
+                                <a id="gotoprofile" style="min-width: 50px; min-height: 50px;">
+                                    <img id="profile_img_post" src="/assets/img/icon/dummy-profile-pic.png" class="object-cover object-center rounded-full w-14 h-14"
+                                    style="display: inline-flex !important; height: 50px; width: 50px;">
+                                </a>
+                                <div class="pl-2 w-full mt-1">
+                                    <div class="mb-1">
+                                        <div class="-mb-1">
+                                            <span class="text-white truncate"><a id="author_post">...</a></span>
+                                        </div>
+                                        <div class="text-white opacity-30 truncate overflow-x-hidden text-sm">
+                                            <span><span id="username_post">@...</span> <span id="dataPost">xx/xx/xx</span></span></span>
+                                        </div>
+                                <p id="content_post" class="text-white font-light text-sm mt-2" style="word-break: break-all;">...</p>
+                                </div>
+                                    <div id="imgPost_"></div>
+                                    <div class="grid grid-cols-4 gap-2 text-start mx-2 mt-3 text-opacity-40 text-white text-xs">
+                                        <div>
+                                            <button id="like_button" onclick="like()"
+                                                class="transition-all duration-200 hover:scale-125 hover:text-red-500">
+                                                <i class="fas fa-heart"></i> 0
+                                            </button>
+                                        </div>
+                                        <div>
+                                            <button id="repost_button" onclick="repost()"
+                                                class="transition-all duration-200 hover:scale-125 hover:text-lime-500">
+                                                <i class="fad fa-sync-alt"></i> 0
+                                            </button>
+                                        </div>
+                                        <div>
+                                            <button onclick="share()"
+                                                class="transition-all duration-200 hover:scale-125 hover:text-blue-500">
+                                                <i class="fad fa-share-square"></i>
+                                            </button>
+                                        </div>
+                                        <div class="hidden" id="deletepostButton"><button onclick="deletepost()" class="transition-all duration-200 hover:scale-125 hover:text-red-500"><i class="fas fa-trash"></i></button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form class="flex justify-start w-full" id="comment">
+                    <div class="mx-7 w-full mt-2">
+                        <!-- previewImg -->
+                        <div class="w-full flex justify-between mt-2">
+                            <div class="h-28 w-28 relative hidden" id="img_catagory">
+                                <img id="previewImg" src="#"
+                                    class="absolute inset-0 z-0 object-cover object-top h-28 w-28 rounded-lg" alt="" />
+                                <button type="button" onclick="removeImg()"
+                                    class="rounded-lg opacity-0 bg-black hover:bg-opacity-40 hover:opacity-100 duration-300 absolute inset-0 z-10 flex justify-center items-center text-white font-semibold"><i
+                                        class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="w-full text-right">
+                            <span class="text-white" id="countword_preview">
+                            </span>
+                        </div>
+                        <div class="w-full flex justify-end mt-4">
+                        <input name="comment" id="inputComment" oninput="checklength(this.value.length)" class="w-full px-3 bg-white bg-transparent outline-none text-white" maxlength="100"
+                            placeholder="พูดอะไรสักอย่างสิ..." required>
+                            <label for="uploadimg"
+                                    class="pr-3 block text-white text-start transition-all duration-200 hover:scale-110"
+                                    type="submit" id="submit"><i class="fad fa-camera"></i></label>
+                                <input type="file" id="uploadimg" name="uploadimg" accept="image/png, image/gif, image/jpeg" hidden>
+                            <button
+                                class="pr-3 block text-white text-start transition-all duration-200 hover:scale-110"
+                                type="submit" id="submit"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </form>
+                <div class="w-100 text-white text-center hidden" id="alert_post"><span id="alert_post_msg">awdawd</span></div>
+                <hr class="mx-5 opacity-25 mt-4 text-center">
+                <div id="commentlist" class="grid mx-7 my-5 px-3 gap-4">
+                </div>
+                <div class="w-full text-center" id="loadmore">
+                    <button class="text-white mb-6" onclick="loadmoreComment()"><i class="fas fa-eye"></i> ดูเพิ่มเติม</button>
+                </div>
+            </div>
+            <%- include("./components/explore")%>
+    </div>
+</body>
+<script src="/assets/js/custommain.js"></script>
+<script src="/assets/js/status.js"></script>
+
+</html>

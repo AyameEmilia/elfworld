@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&display=swap');
+
+
+* {
+    font-family: 'Mitr', sans-serif;
+    scroll-behavior: smooth;
+}
+html {
+    overflow: overlay;
+}
+
+body {
+    background-color: rgb(0, 0, 0);
+}
+
+::-moz-selection { /* Code for Firefox */
+    background: rgba(245, 173, 255, 0.288);
+}
+  
+::selection {
+    background: rgba(245, 173, 255, 0.288);
+}
+
+* ::-webkit-scrollbar {
+    width: 0px;
+}
+
+* ::-webkit-scrollbar-track {
+    background: #ffffff00;
+}
+
+* ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.26);
+    border-radius: 100px 100px 100px 100px;
+
+}
+
+input {
+    color-scheme: dark;
+}
+
+* ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.562);
+}
+
+/* custom swal */
+.swal2-default-outline:focus {
+    box-shadow: none !important;
+}
+
+.swal2-default-outline {
+    transition: 300ms;
+    transform: scale(1);
+}
+
+.swal2-default-outline:hover {
+    transition: 300ms;
+    transform: scale(1.1);
+}
+
+.swal2-default-outline:focus {
+    box-shadow: none !important;
+}
+
+.swal2-cancel {
+    transform: scale(1);
+}
+
+.swal2-cancel:hover {
+    transition: 300ms;
+    transform: scale(1.1);
+}
+
+.swal2-cancel:focus {
+    box-shadow: none !important;
+}

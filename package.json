@@ -1,0 +1,40 @@
+{
+  "dependencies": {
+    "@fastify/cookie": "^8.3.0",
+    "@fastify/cors": "^8.2.0",
+    "@fastify/static": "^6.5.1",
+    "@fastify/view": "^7.3.0",
+    "@prisma/client": "^4.6.1",
+    "Blob": "^0.10.0",
+    "axios": "^1.2.0",
+    "buffer": "^6.0.3",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "fastify": "^4.10.2",
+    "fastify-file-upload": "^4.0.0",
+    "fastify-sse-v2": "^3.0.0",
+    "form-data": "^4.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "md5": "^2.3.0",
+    "path": "^0.12.7",
+    "prisma": "^4.6.1"
+  },
+  "scripts": {
+    "dbpush": "prisma db push",
+    "start": "node .",
+    "dev": "nodemon ."
+  },
+  "name": "myworld",
+  "version": "1.0.0",
+  "description": "twitter emulator (ejs)",
+  "main": "index.js",
+  "devDependencies": {},
+  "keywords": [
+    "twitter",
+    "api",
+    "ejs",
+    "social"
+  ],
+  "author": "AyameEmilia",
+  "license": "MIT"
+}

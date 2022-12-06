@@ -1,0 +1,30 @@
+{
+    "role": [
+        {
+            "id": 0,
+            "display": "member"
+        },
+        {
+            "id": 8,
+            "display": "admin"
+        }
+    ],
+    "typeAction": [
+        {
+            "id": 0,
+            "display": "comment"
+        },
+        {
+            "id": 1,
+            "display": "like"
+        },
+        {
+            "id": 2,
+            "display": "repost"
+        },
+        {
+            "id": 3,
+            "display": "follow"
+        }
+    ]
+}
